@@ -106,7 +106,7 @@ def get_data_object_versions(data_object_id):
 #
 @app.route('/')
 def index():
-    message = "<h1>Welcome to the DOS lambda, send requests to /{gdc}/ga4gh/dos/v1/</h1>"
+    message = "<h1>Welcome to the DOS lambda, send requests to /ga4gh/dos/v1/</h1>"
     return Response(body=message,
                     status_code=200,
                     headers={'Content-Type': 'text/html'})
