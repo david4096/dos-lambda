@@ -2,6 +2,8 @@ from chalice import Chalice, Response
 import requests
 import logging
 
+SIGNPOST_URL = "https://signpost.opensciencedatacloud.org"
+
 app = Chalice(app_name='dos-lambda', debug=True)
 app.log.setLevel(logging.DEBUG)
 
@@ -77,7 +79,7 @@ def gdc_to_dos_list_response(gdcr):
 @app.route('/ga4gh/dos/v1/dataobjects/{data_object_id}', methods=['GET'], cors=True)
 def get_data_object(data_object_id):
     req = requests.get(
-        "https://signpost.opensciencedatacloud.org/index/{}".format(data_object_id))
+        "{}/index/{}".format(SIGNPOST_URL, data_object_id))
     return {'data_object': gdc_to_ga4gh(req.json())}
 
 @app.route('/ga4gh/dos/v1/dataobjects/list', methods=['POST'], cors=True)
@@ -87,7 +89,7 @@ def list_data_objects():
         gdc_req = dos_list_request_to_gdc(req_body)
     else:
         gdc_req = {}
-    signpost_req = requests.get("https://signpost.opensciencedatacloud.org/index/", params=gdc_req)
+    signpost_req = requests.get("{}/index/".format(SIGNPOST_URL), params=gdc_req)
     list_response = signpost_req.json()
     return gdc_to_dos_list_response(list_response)
 #
@@ -98,7 +100,7 @@ def list_data_objects():
 @app.route('/ga4gh/dos/v1/dataobjects/{data_object_id}/versions', methods=['GET'], cors=True)
 def get_data_object_versions(data_object_id):
     req = requests.get(
-        "https://signpost.opensciencedatacloud.org/index/{}".format(data_object_id))
+        "{}/index/{}".format(SIGNPOST_URL, data_object_id))
     return req.json()
 #
 #
