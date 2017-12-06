@@ -23,6 +23,7 @@ Install chalice: `pip install chalice` and try it out yourself!
 
 ```
 git clone https://github.com/david4096/dos-signpost-lambda.git
+cd dos-signpost-lambda
 chalice deploy
 ```
 
